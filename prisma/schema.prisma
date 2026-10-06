@@ -1,0 +1,170 @@
+// N5Deal prototype. Prisma ORM 7; DATABASE_URL belongs in prisma.config.ts.
+// Add constraints.sql to the generated initial migration before applying it.
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  BUYER
+  SELLER
+  MANAGER
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  REMOVED
+}
+
+enum BusinessCategory {
+  BANK
+  FINTECH
+  PAYMENTS
+  CRYPTO
+  OTHER_FINANCIAL
+}
+
+enum AssetType {
+  OPERATING_BUSINESS
+  LICENSED_ENTITY
+  TECHNOLOGY_ASSET
+  OTHER_FINANCIAL_ASSET
+}
+
+enum BusinessStatus {
+  OPERATING
+  NOT_OPERATING
+  NEVER_OPERATED
+  NOT_APPLICABLE
+}
+
+enum LicenseType {
+  BANKING
+  EMI
+  PI
+  PSP
+  SPI
+  MSB
+  CASP
+  OTHER
+}
+
+enum PriceType {
+  FIXED
+  ON_REQUEST
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model User {
+  id          String     @id @default(uuid()) @db.Uuid
+  email       String     @unique(map: "users_email_key") @db.VarChar(254)
+  name        String     @db.VarChar(100)
+  companyName String?    @map("company_name") @db.VarChar(140)
+  countryCode String?    @map("country_code") @db.VarChar(2)
+  role        UserRole
+  status      UserStatus @default(ACTIVE)
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  buyerProfile       BuyerProfile?
+  assets             Asset[]
+  sentInquiries      Inquiry[]         @relation("InquirySender")
+  receivedInquiries  Inquiry[]         @relation("InquiryRecipient")
+  moderationAuthored ModerationEvent[] @relation("ModerationManager")
+  moderationReceived ModerationEvent[] @relation("ModerationTarget")
+
+  @@map("users")
+}
+
+model BuyerProfile {
+  // Shared primary key enforces exactly zero or one profile per user.
+  userId              String             @id @map("user_id") @db.Uuid
+  thesis              String?            @db.VarChar(2000)
+  targetCategories    BusinessCategory[] @default([]) @map("target_categories")
+  targetJurisdictions String[]           @default([]) @map("target_jurisdictions") @db.VarChar(2)
+  budgetMin           Decimal?           @map("budget_min") @db.Decimal(18, 2)
+  budgetMax           Decimal?           @map("budget_max") @db.Decimal(18, 2)
+  // NULL = DRAFT; non-NULL = PUBLISHED. Clear when hiding the profile.
+  publishedAt         DateTime?          @map("published_at") @db.Timestamptz(3)
+  createdAt           DateTime           @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime           @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@index([publishedAt(sort: Desc), userId(sort: Desc)], map: "buyer_profiles_catalog_idx")
+  @@map("buyer_profiles")
+}
+
+model Asset {
+  id                String            @id @default(uuid()) @db.Uuid
+  sellerId          String            @map("seller_id") @db.Uuid
+  title             String            @db.VarChar(140)
+  // Fields below may be absent on a draft or an edited archived asset.
+  description       String?           @db.VarChar(5000)
+  businessCategory  BusinessCategory? @map("business_category")
+  assetType         AssetType?        @map("asset_type")
+  jurisdiction      String?           @db.VarChar(2)
+  licenseType       LicenseType?      @map("license_type")
+  businessStatus    BusinessStatus?   @map("business_status")
+  priceType         PriceType?        @map("price_type")
+  askingPrice       Decimal?          @map("asking_price") @db.Decimal(18, 2)
+  publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
+  publishedAt       DateTime?         @map("published_at") @db.Timestamptz(3)
+  createdAt         DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt         DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  seller    User      @relation(fields: [sellerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  inquiries Inquiry[]
+
+  @@index([publicationStatus, publishedAt(sort: Desc), id(sort: Desc)], map: "assets_catalog_idx")
+  @@index([sellerId, createdAt(sort: Desc), id(sort: Desc)], map: "assets_seller_idx")
+  @@map("assets")
+}
+
+model Inquiry {
+  id             String    @id @default(uuid()) @db.Uuid
+  senderId       String    @map("sender_id") @db.Uuid
+  recipientId    String    @map("recipient_id") @db.Uuid
+  assetId        String?   @map("asset_id") @db.Uuid
+  body           String    @db.VarChar(2000)
+  // Supplied by the caller per submission attempt; no automatic DB default.
+  idempotencyKey String    @map("idempotency_key") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  readAt         DateTime? @map("read_at") @db.Timestamptz(3)
+
+  sender    User   @relation("InquirySender", fields: [senderId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  recipient User   @relation("InquiryRecipient", fields: [recipientId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  asset     Asset? @relation(fields: [assetId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@unique([senderId, idempotencyKey], map: "inquiries_sender_request_key")
+  @@index([recipientId, createdAt(sort: Desc), id(sort: Desc)], map: "inquiries_inbox_idx")
+  @@index([senderId, createdAt(sort: Desc), id(sort: Desc)], map: "inquiries_sent_idx")
+  @@map("inquiries")
+}
+
+model ModerationEvent {
+  id           String     @id @default(uuid()) @db.Uuid
+  managerId    String     @map("manager_id") @db.Uuid
+  targetUserId String     @map("target_user_id") @db.Uuid
+  // Action is derived from this transition; no duplicate action column.
+  fromStatus   UserStatus @map("from_status")
+  toStatus     UserStatus @map("to_status")
+  reason       String     @db.VarChar(500)
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  manager User @relation("ModerationManager", fields: [managerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  target  User @relation("ModerationTarget", fields: [targetUserId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@index([targetUserId, createdAt(sort: Desc), id(sort: Desc)], map: "moderation_target_idx")
+  @@map("moderation_events")
+}

@@ -1,0 +1,695 @@
+{
+  "formatVersion": 1,
+  "description": "Fictional deterministic fixtures for N5Deal. Execute only against the designated demo or test database. Existing rows must not be reset by the normal seed.",
+  "demoPersonas": [
+    {
+      "label": "Buyer: existing profile",
+      "userId": "08e69f15-fc09-5f2a-94e0-26a88797e57d"
+    },
+    {
+      "label": "Buyer: second participant",
+      "userId": "0443bd03-2453-5d8c-abd5-d54247e7e416"
+    },
+    {
+      "label": "Buyer: new profile",
+      "userId": "df722183-431b-5a41-b506-2d306beb6cb6"
+    },
+    {
+      "label": "Seller: primary",
+      "userId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729"
+    },
+    {
+      "label": "Seller: second participant",
+      "userId": "c9d69263-436f-5e35-a57b-3e3818052d0f"
+    },
+    {
+      "label": "Platform Manager",
+      "userId": "55f3a4be-eb32-59c1-9b64-8d4a9c05cfd5"
+    }
+  ],
+  "users": [
+    {
+      "id": "08e69f15-fc09-5f2a-94e0-26a88797e57d",
+      "email": "buyer-1@example.com",
+      "name": "Alex Morgan",
+      "companyName": "Northstar Capital",
+      "countryCode": "GB",
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "0443bd03-2453-5d8c-abd5-d54247e7e416",
+      "email": "buyer-2@example.com",
+      "name": "Jamie Chen",
+      "companyName": "Harbor Growth Partners",
+      "countryCode": "SG",
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "2617de31-a54d-5abd-9e5d-a425390236cd",
+      "email": "buyer-3@example.com",
+      "name": "Robin Keller",
+      "companyName": "Independent investor",
+      "countryCode": "DE",
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "56b6926d-2ffc-5a45-924e-214eaa36731b",
+      "email": "buyer-4@example.com",
+      "name": "Casey Laurent",
+      "companyName": "Cobalt Payments Group",
+      "countryCode": "FR",
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "5561922e-18ca-5c43-99bf-ff19460f63ba",
+      "email": "buyer-5@example.com",
+      "name": "Taylor Novak",
+      "companyName": "Orion Family Office",
+      "countryCode": "PL",
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "b0283d76-d77e-561e-aebd-c919fb725407",
+      "email": "buyer-6@example.com",
+      "name": "Jordan Silva",
+      "companyName": "Atlas Ventures",
+      "countryCode": "ES",
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "5767d5c7-3c3a-56d8-9c4d-bacf8d78cf1e",
+      "email": "buyer-7@example.com",
+      "name": "Drew Parker",
+      "companyName": "Demo Suspended Buyer",
+      "countryCode": "US",
+      "role": "BUYER",
+      "status": "SUSPENDED",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-04T09:00:00.000Z"
+    },
+    {
+      "id": "df722183-431b-5a41-b506-2d306beb6cb6",
+      "email": "buyer-8@example.com",
+      "name": "Sam Rivera",
+      "companyName": null,
+      "countryCode": null,
+      "role": "BUYER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "email": "seller-1@example.com",
+      "name": "Avery Reed",
+      "companyName": "Bridgepoint Asset Sales",
+      "countryCode": "GB",
+      "role": "SELLER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "email": "seller-2@example.com",
+      "name": "Cameron Ellis",
+      "companyName": "Meridian Fintech Partners",
+      "countryCode": "LT",
+      "role": "SELLER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "email": "seller-3@example.com",
+      "name": "Morgan Blake",
+      "companyName": "Clearwater Opportunities",
+      "countryCode": "NL",
+      "role": "SELLER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "a8de3b25-902b-5b88-902c-57ba531f8c04",
+      "email": "seller-4@example.com",
+      "name": "Quinn Taylor",
+      "companyName": "Demo Suspended Seller",
+      "countryCode": "CA",
+      "role": "SELLER",
+      "status": "SUSPENDED",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-04T09:00:00.000Z"
+    },
+    {
+      "id": "55f3a4be-eb32-59c1-9b64-8d4a9c05cfd5",
+      "email": "manager-1@example.com",
+      "name": "Demo Manager",
+      "companyName": "N5Deal Demo",
+      "countryCode": "GB",
+      "role": "MANAGER",
+      "status": "ACTIVE",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    }
+  ],
+  "buyerProfiles": [
+    {
+      "userId": "08e69f15-fc09-5f2a-94e0-26a88797e57d",
+      "thesis": "We seek acquisition opportunities in payments, fintech with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
+      "targetCategories": [
+        "PAYMENTS",
+        "FINTECH"
+      ],
+      "targetJurisdictions": [
+        "PL",
+        "LT"
+      ],
+      "budgetMin": "50000.00",
+      "budgetMax": "2000000.00",
+      "publishedAt": "2026-09-02T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "userId": "0443bd03-2453-5d8c-abd5-d54247e7e416",
+      "thesis": "We seek acquisition opportunities in crypto, payments with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
+      "targetCategories": [
+        "CRYPTO",
+        "PAYMENTS"
+      ],
+      "targetJurisdictions": [],
+      "budgetMin": null,
+      "budgetMax": "5000000.00",
+      "publishedAt": "2026-09-03T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "userId": "2617de31-a54d-5abd-9e5d-a425390236cd",
+      "thesis": "We seek acquisition opportunities in fintech with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
+      "targetCategories": [
+        "FINTECH"
+      ],
+      "targetJurisdictions": [
+        "DE",
+        "NL"
+      ],
+      "budgetMin": "100000.00",
+      "budgetMax": null,
+      "publishedAt": "2026-09-04T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "userId": "56b6926d-2ffc-5a45-924e-214eaa36731b",
+      "thesis": "We seek acquisition opportunities in payments with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
+      "targetCategories": [
+        "PAYMENTS"
+      ],
+      "targetJurisdictions": [
+        "FR",
+        "GB"
+      ],
+      "budgetMin": "250000.00",
+      "budgetMax": "1500000.00",
+      "publishedAt": "2026-09-05T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "userId": "5561922e-18ca-5c43-99bf-ff19460f63ba",
+      "thesis": "We seek acquisition opportunities in bank, other_financial with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
+      "targetCategories": [
+        "BANK",
+        "OTHER_FINANCIAL"
+      ],
+      "targetJurisdictions": [],
+      "budgetMin": null,
+      "budgetMax": null,
+      "publishedAt": "2026-09-06T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "userId": "b0283d76-d77e-561e-aebd-c919fb725407",
+      "thesis": null,
+      "targetCategories": [],
+      "targetJurisdictions": [],
+      "budgetMin": null,
+      "budgetMax": null,
+      "publishedAt": null,
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "userId": "5767d5c7-3c3a-56d8-9c4d-bacf8d78cf1e",
+      "thesis": "We seek acquisition opportunities in crypto with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
+      "targetCategories": [
+        "CRYPTO"
+      ],
+      "targetJurisdictions": [
+        "CA",
+        "US"
+      ],
+      "budgetMin": "10000.00",
+      "budgetMax": "1000000.00",
+      "publishedAt": "2026-09-08T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    }
+  ],
+  "assets": [
+    {
+      "id": "a8b51c1c-fb59-52c2-b566-a2aa2b9d12b8",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "Polish payment institution",
+      "description": "Fictional acquisition opportunity: Polish payment institution. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "LICENSED_ENTITY",
+      "jurisdiction": "PL",
+      "licenseType": "SPI",
+      "businessStatus": "NEVER_OPERATED",
+      "priceType": "FIXED",
+      "askingPrice": "95000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-02T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "210325ae-7994-5e93-ad0a-bf8fa587688f",
+      "sellerId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "title": "Baltic electronic money business",
+      "description": "Fictional acquisition opportunity: Baltic electronic money business. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "LT",
+      "licenseType": "EMI",
+      "businessStatus": "OPERATING",
+      "priceType": "ON_REQUEST",
+      "askingPrice": null,
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-03T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "89a874f9-f6ba-5f40-a11a-b25ef235fc4a",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "German payment analytics platform",
+      "description": "Fictional acquisition opportunity: German payment analytics platform. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "FINTECH",
+      "assetType": "TECHNOLOGY_ASSET",
+      "jurisdiction": "DE",
+      "licenseType": null,
+      "businessStatus": "NOT_APPLICABLE",
+      "priceType": "FIXED",
+      "askingPrice": "350000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-04T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "8c6d2ca5-42a9-5aa2-b4c2-2a8bfa83b7fb",
+      "sellerId": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "title": "Spanish digital asset operator",
+      "description": "Fictional acquisition opportunity: Spanish digital asset operator. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "CRYPTO",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "ES",
+      "licenseType": "CASP",
+      "businessStatus": "OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "2500000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-05T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "ff7838eb-f960-5607-a3ff-18ded1fb2e30",
+      "sellerId": "a8de3b25-902b-5b88-902c-57ba531f8c04",
+      "title": "Canadian financial services company",
+      "description": "Fictional acquisition opportunity: Canadian financial services company. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "CRYPTO",
+      "assetType": "LICENSED_ENTITY",
+      "jurisdiction": "CA",
+      "licenseType": "MSB",
+      "businessStatus": "NOT_OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "400000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-06T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "aeefb483-7163-5b03-bcbb-ffbe52f8a463",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "New financial opportunity draft",
+      "description": null,
+      "businessCategory": null,
+      "assetType": null,
+      "jurisdiction": null,
+      "licenseType": null,
+      "businessStatus": null,
+      "priceType": null,
+      "askingPrice": null,
+      "publicationStatus": "DRAFT",
+      "publishedAt": null,
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "4f1ceab2-d0b1-57f8-977e-b14841bf4984",
+      "sellerId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "title": "UK payments platform",
+      "description": "Fictional acquisition opportunity: UK payments platform. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "GB",
+      "licenseType": "PSP",
+      "businessStatus": "OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "750000.00",
+      "publicationStatus": "ARCHIVED",
+      "publishedAt": "2026-09-08T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "52ce0c5b-515c-5a44-aabb-a079bd5e949d",
+      "sellerId": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "title": "Financial receivables portfolio",
+      "description": "Fictional acquisition opportunity: Financial receivables portfolio. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "OTHER_FINANCIAL",
+      "assetType": "OTHER_FINANCIAL_ASSET",
+      "jurisdiction": "FR",
+      "licenseType": null,
+      "businessStatus": "NOT_APPLICABLE",
+      "priceType": "ON_REQUEST",
+      "askingPrice": null,
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-09T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "e317f1dd-1617-53ee-919a-568af0a9ba56",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "UK specialist banking business",
+      "description": "Fictional acquisition opportunity: UK specialist banking business. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "BANK",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "GB",
+      "licenseType": "BANKING",
+      "businessStatus": "OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "12000000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-10T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "9072d320-af4f-56a2-ac90-bdc892a6317b",
+      "sellerId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "title": "Polish payments growth business",
+      "description": "Fictional acquisition opportunity: Polish payments growth business. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "PL",
+      "licenseType": "PI",
+      "businessStatus": "OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "1400000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-11T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "b729f4b8-05bd-5ffb-be33-0da0c970c5ba",
+      "sellerId": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "title": "Dutch compliance software platform",
+      "description": "Fictional acquisition opportunity: Dutch compliance software platform. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "FINTECH",
+      "assetType": "TECHNOLOGY_ASSET",
+      "jurisdiction": "NL",
+      "licenseType": null,
+      "businessStatus": "NOT_APPLICABLE",
+      "priceType": "FIXED",
+      "askingPrice": "650000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-12T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "8d0d61b2-75d1-5062-939e-b9d6ea690b30",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "Estonian wallet software stack",
+      "description": "Fictional acquisition opportunity: Estonian wallet software stack. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "CRYPTO",
+      "assetType": "TECHNOLOGY_ASSET",
+      "jurisdiction": "EE",
+      "licenseType": null,
+      "businessStatus": "NOT_APPLICABLE",
+      "priceType": "FIXED",
+      "askingPrice": "280000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-13T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "888d144a-bea8-52c5-8c62-a3bd485934d2",
+      "sellerId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "title": "US remittance services company",
+      "description": "Fictional acquisition opportunity: US remittance services company. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "LICENSED_ENTITY",
+      "jurisdiction": "US",
+      "licenseType": "MSB",
+      "businessStatus": "NEVER_OPERATED",
+      "priceType": "FIXED",
+      "askingPrice": "500000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-14T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "46474488-a090-52d7-a8c2-fbfc71209f5f",
+      "sellerId": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "title": "French financial software business",
+      "description": "Fictional acquisition opportunity: French financial software business. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "FINTECH",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "FR",
+      "licenseType": null,
+      "businessStatus": "OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "1100000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-15T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "a6122c0d-6cad-5a33-9680-9cf83e434378",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "UAE payment services entity",
+      "description": "Fictional acquisition opportunity: UAE payment services entity. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "LICENSED_ENTITY",
+      "jurisdiction": "AE",
+      "licenseType": "PSP",
+      "businessStatus": "NOT_OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "900000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-16T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "1dfa7fda-207d-56c1-9172-fd448b7a5f75",
+      "sellerId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "title": "Singapore digital asset infrastructure",
+      "description": "Fictional acquisition opportunity: Singapore digital asset infrastructure. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "CRYPTO",
+      "assetType": "TECHNOLOGY_ASSET",
+      "jurisdiction": "SG",
+      "licenseType": null,
+      "businessStatus": "NOT_APPLICABLE",
+      "priceType": "FIXED",
+      "askingPrice": "220000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-17T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "ee7bea03-b93f-551b-8c2a-65ce61274265",
+      "sellerId": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "title": "Unpriced fixed-price draft",
+      "description": null,
+      "businessCategory": null,
+      "assetType": null,
+      "jurisdiction": null,
+      "licenseType": null,
+      "businessStatus": null,
+      "priceType": "FIXED",
+      "askingPrice": null,
+      "publicationStatus": "DRAFT",
+      "publishedAt": null,
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "54fe522d-a835-55fb-bcd3-17f76706bab9",
+      "sellerId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "title": "German payment integration software",
+      "description": "Fictional acquisition opportunity: German payment integration software. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "PAYMENTS",
+      "assetType": "TECHNOLOGY_ASSET",
+      "jurisdiction": "DE",
+      "licenseType": null,
+      "businessStatus": "NOT_APPLICABLE",
+      "priceType": "FIXED",
+      "askingPrice": "180000.00",
+      "publicationStatus": "ARCHIVED",
+      "publishedAt": "2026-09-19T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "b8ba1a11-8ca0-5426-9301-d6822589ca05",
+      "sellerId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "title": "Swiss financial services opportunity",
+      "description": "Fictional acquisition opportunity: Swiss financial services opportunity. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "OTHER_FINANCIAL",
+      "assetType": "LICENSED_ENTITY",
+      "jurisdiction": "CH",
+      "licenseType": "OTHER",
+      "businessStatus": "NOT_OPERATING",
+      "priceType": "ON_REQUEST",
+      "askingPrice": null,
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-20T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    },
+    {
+      "id": "d17ee5a3-3116-5d7b-a026-1f9d698600a3",
+      "sellerId": "2c19c176-9279-57ac-a42e-8cdb48aeb5cf",
+      "title": "Maltese specialist banking business",
+      "description": "Fictional acquisition opportunity: Maltese specialist banking business. Includes a structured business overview and an opportunity to contact the seller. No real company, license verification, or financial valuation is represented.",
+      "businessCategory": "BANK",
+      "assetType": "OPERATING_BUSINESS",
+      "jurisdiction": "MT",
+      "licenseType": "BANKING",
+      "businessStatus": "OPERATING",
+      "priceType": "FIXED",
+      "askingPrice": "9800000.00",
+      "publicationStatus": "PUBLISHED",
+      "publishedAt": "2026-09-21T10:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "updatedAt": "2026-10-01T09:00:00.000Z"
+    }
+  ],
+  "inquiries": [
+    {
+      "id": "46e30d39-9ef7-50e3-828f-c64140566340",
+      "senderId": "08e69f15-fc09-5f2a-94e0-26a88797e57d",
+      "recipientId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "assetId": "a8b51c1c-fb59-52c2-b566-a2aa2b9d12b8",
+      "body": "Please share more information about the operating scope and acquisition process.",
+      "idempotencyKey": "43533955-58c9-5a6c-9ce0-2ef93c9f3810",
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "readAt": "2026-10-03T10:00:00.000Z"
+    },
+    {
+      "id": "65e750e2-42c9-5701-9ae0-4d3e1a710559",
+      "senderId": "0443bd03-2453-5d8c-abd5-d54247e7e416",
+      "recipientId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "assetId": "210325ae-7994-5e93-ad0a-bf8fa587688f",
+      "body": "We are interested in this opportunity and would like to discuss the asking price.",
+      "idempotencyKey": "ae47d7ae-a87a-5289-9b4b-b766d81b2ae4",
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "readAt": null
+    },
+    {
+      "id": "809989da-d54d-58da-a7a2-17fc51dc9c42",
+      "senderId": "e30f0ef0-57a0-5f01-a6af-3d66c741f729",
+      "recipientId": "0443bd03-2453-5d8c-abd5-d54247e7e416",
+      "assetId": "89a874f9-f6ba-5f40-a11a-b25ef235fc4a",
+      "body": "Our analytics platform may fit your technology interests. Would you like to discuss it?",
+      "idempotencyKey": "9f3c30ed-8ceb-5041-81e3-432becda13cb",
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "readAt": null
+    },
+    {
+      "id": "f35b281e-bbd2-51ca-81d7-6615b448e281",
+      "senderId": "c9d69263-436f-5e35-a57b-3e3818052d0f",
+      "recipientId": "08e69f15-fc09-5f2a-94e0-26a88797e57d",
+      "assetId": null,
+      "body": "We have opportunities matching your investment interests and would like to introduce our firm.",
+      "idempotencyKey": "d103ebc8-a287-5a9f-9778-34daaddccf61",
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "readAt": null
+    },
+    {
+      "id": "42894e2d-ed79-5b26-832a-7e403f3ac972",
+      "senderId": "0443bd03-2453-5d8c-abd5-d54247e7e416",
+      "recipientId": "a8de3b25-902b-5b88-902c-57ba531f8c04",
+      "assetId": "ff7838eb-f960-5607-a3ff-18ded1fb2e30",
+      "body": "This earlier inquiry remains visible after the seller is suspended.",
+      "idempotencyKey": "87e84cb8-d3ce-545a-b101-8998932856ec",
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "readAt": "2026-10-03T10:00:00.000Z"
+    }
+  ],
+  "moderationEvents": [
+    {
+      "id": "74b0eff5-9892-5f23-86fa-acaa5f13314f",
+      "managerId": "55f3a4be-eb32-59c1-9b64-8d4a9c05cfd5",
+      "targetUserId": "5767d5c7-3c3a-56d8-9c4d-bacf8d78cf1e",
+      "fromStatus": "ACTIVE",
+      "toStatus": "SUSPENDED",
+      "reason": "Demonstration suspension: profile information requires clarification.",
+      "createdAt": "2026-10-04T09:00:00.000Z"
+    },
+    {
+      "id": "ce977442-ec3e-56e1-b1cc-e118968b3379",
+      "managerId": "55f3a4be-eb32-59c1-9b64-8d4a9c05cfd5",
+      "targetUserId": "a8de3b25-902b-5b88-902c-57ba531f8c04",
+      "fromStatus": "ACTIVE",
+      "toStatus": "SUSPENDED",
+      "reason": "Demonstration suspension: profile information requires clarification.",
+      "createdAt": "2026-10-04T09:00:00.000Z"
+    }
+  ]
+}

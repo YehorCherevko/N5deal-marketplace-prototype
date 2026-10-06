@@ -1,0 +1,10 @@
+node_modules/
+.next/
+next-env.d.ts
+src/generated/prisma/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+npm-debug.log*
