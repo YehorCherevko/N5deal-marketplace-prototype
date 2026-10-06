@@ -92,7 +92,7 @@ docker compose run --rm app npm run verify:local-db
 
 This command recreates **only `n5deal_test`**, applies the committed migrations to the empty test database, and checks fixture counts, duplicate-free reseeding, preservation of edits, identity conflicts, transaction rollback on relationship conflicts, SQL constraints, and exact final fixtures. It requires a local PostgreSQL connection and a database owner able to create/drop the test database. It refuses production mode or a remote host. Negative SQL checks run inside rolled-back transactions; test setup changes stay in the separate test database. No test mutations remain in demo data.
 
-`verify:db` is the underlying check script and expects an empty, migrated `n5deal_test` database. `verify:local-db` recreates that database to make reruns reproducible. Results actually executed are recorded in [docs/STEP-3-VERIFICATION.md](docs/STEP-3-VERIFICATION.md).
+`verify:db` is the underlying check script and expects an empty, migrated `n5deal_test` database. `verify:local-db` recreates that database to make reruns reproducible. Results actually executed are recorded in [docs/LOCAL-VERIFICATION.md](docs/LOCAL-VERIFICATION.md).
 
 ## Stop and restart without losing data
 
