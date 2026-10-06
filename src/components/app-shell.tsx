@@ -16,6 +16,11 @@ export function AppHeader({
   if (user.role === "SELLER") links.push({ href: "/my-assets", label: "My assets" });
   if (user.role === "BUYER") links.push({ href: "/my-profile", label: "My profile" });
   else links.push({ href: "/buyers", label: "Buyers" });
+  if (user.role !== "MANAGER") {
+    links.push({ href: "/inbox", label: "Inbox" }, { href: "/sent", label: "Sent" });
+  } else {
+    links.push({ href: "/manager/participants", label: "Participants" }, { href: "/manager/assets", label: "All assets" });
+  }
 
   return (
     <header className="app-header marketplace-header">

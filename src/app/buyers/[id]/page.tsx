@@ -10,6 +10,9 @@ import {
 } from "@/features/marketplace/search";
 import { getBuyerDetail } from "@/server/buyers/queries";
 import { pageAccess } from "@/server/auth/page-access";
+import { randomUUID } from "node:crypto";
+import { ContactForm } from "@/features/inquiries/contact-form";
+import { getBuyerContact } from "@/server/inquiries/queries";
 
 export default async function BuyerDetailPage({
   params,
@@ -21,6 +24,7 @@ export default async function BuyerDetailPage({
   const { id } = await params;
   const { user, profile, canEdit } = await pageAccess(() => getBuyerDetail(id));
   if (!profile) notFound();
+  const contact = user.role === "SELLER" ? await pageAccess(() => getBuyerContact(id)) : null;
   const back =
     user.role === "BUYER"
       ? "/my-profile"
@@ -95,6 +99,7 @@ export default async function BuyerDetailPage({
           </p>
         </aside>
       </div>
+      {contact && <ContactForm target={{ kind: "buyer", id }} attemptKey={randomUUID()} assets={contact.assets} />}
     </AppShell>
   );
 }

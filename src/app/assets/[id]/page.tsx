@@ -15,6 +15,9 @@ import {
 } from "@/features/marketplace/search";
 import { getAssetDetail } from "@/server/assets/queries";
 import { pageAccess } from "@/server/auth/page-access";
+import { randomUUID } from "node:crypto";
+import { ContactForm } from "@/features/inquiries/contact-form";
+import { getAssetContact } from "@/server/inquiries/queries";
 
 export default async function AssetDetailPage({
   params,
@@ -26,12 +29,15 @@ export default async function AssetDetailPage({
   const { id } = await params;
   const { user, asset, canEdit } = await pageAccess(() => getAssetDetail(id));
   if (!asset) notFound();
-  const back = backToCatalog(parameter(await searchParams, "returnTo"), "/assets");
+  const contact = user.role === "BUYER" ? await pageAccess(() => getAssetContact(id)) : null;
+  const returnTo = parameter(await searchParams, "returnTo");
+  const managerReturn = user.role === "MANAGER" && returnTo.startsWith("/manager/assets");
+  const back = backToCatalog(returnTo, managerReturn ? "/manager/assets" : "/assets");
 
   return (
     <AppShell user={user} current="/assets">
       <Link href={back} className="back-link">
-        ← Back to assets
+        ← {managerReturn ? "Back to Manager assets" : "Back to assets"}
       </Link>
       <div className="page-heading">
         <div>
@@ -104,6 +110,15 @@ export default async function AssetDetailPage({
           )}
         </aside>
       </div>
+      {contact && (contact.complete ? (
+        <ContactForm target={{ kind: "asset", id }} attemptKey={randomUUID()} />
+      ) : (
+        <section className="contact-panel">
+          <h2>Complete your profile to contact this seller</h2>
+          <p>Provide your name, company or investor designation, registration country, an investment thesis of at least 30 characters, and a target category. Budgets and target markets are optional. Your profile may remain private.</p>
+          <Link href="/my-profile" className="button button-secondary">Complete my profile</Link>
+        </section>
+      ))}
     </AppShell>
   );
 }

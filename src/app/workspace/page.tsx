@@ -46,10 +46,22 @@ export default async function WorkspacePage() {
           <h2 id="summary-heading">{summary.label}</h2>
           <p className="summary-value">{summary.value}</p>
           <p>{summary.detail}</p>
-          <Link href={user.role === "SELLER" ? "/my-assets" : user.role === "BUYER" ? "/my-profile" : "/buyers"} className="button button-secondary">{user.role === "SELLER" ? "Manage my assets" : user.role === "BUYER" ? "Manage my profile" : "Browse buyers"}</Link>
+          <Link
+            href={user.role === "SELLER" ? "/my-assets" : user.role === "BUYER" ? "/my-profile" : "/manager/participants"}
+            className="button button-secondary"
+          >
+            {user.role === "SELLER" ? "Manage my assets" : user.role === "BUYER" ? "Manage my profile" : "Manage participants"}
+          </Link>
         </section>
       </div>
-      <aside className="stage-note"><h2>Explore the shared marketplace</h2><p>Browse published assets, manage your own listings as a seller, or maintain your investment profile as a buyer. Sellers and Managers can explore published buyer profiles. Inquiries and moderation tools are planned for later.</p><Link href="/assets" className="button button-secondary">Browse assets</Link></aside>
+      <aside className="stage-note">
+        <h2>Explore the shared marketplace</h2>
+        <p>Browse published assets and buyer profiles. Buyers and Sellers can send saved contact requests and use Inbox and Sent. Managers can inspect all participants and assets and manage participant access.</p>
+        <Link href="/assets" className="button button-secondary">Browse assets</Link>
+        <Link href={user.role === "MANAGER" ? "/manager/assets" : "/inbox"} className="button button-secondary">
+          {user.role === "MANAGER" ? "View all assets" : "Open Inbox"}
+        </Link>
+      </aside>
       <p className="footer-note">Shared demo · Fictional accounts and data · Demo access is not production authentication</p>
     </main>
   </div>;
