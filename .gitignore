@@ -1,5 +1,7 @@
 node_modules/
-docs/
+docs/*
+!docs/N5Deal-Scope-and-Acceptance.md
+!docs/DATABASE-DESIGN.md
 .next/
 next-env.d.ts
 src/generated/prisma/

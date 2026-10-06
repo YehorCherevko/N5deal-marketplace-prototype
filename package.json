@@ -8,6 +8,8 @@
   },
   "scripts": {
     "test:auth": "node --conditions=react-server --import tsx --test scripts/auth.test.ts",
+    "test:marketplace": "node --conditions=react-server --import tsx --test scripts/assets.test.ts scripts/buyers.test.ts",
+    "test:catalogs": "node --conditions=react-server --import tsx --test scripts/catalogs.test.ts",
     "dev": "next dev --webpack --hostname 0.0.0.0",
     "build": "prisma generate && next build --webpack",
     "start": "next start --hostname 0.0.0.0",

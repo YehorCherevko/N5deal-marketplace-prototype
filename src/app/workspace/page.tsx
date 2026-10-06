@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AccountControls } from "@/components/account-controls";
+import { AppHeader } from "@/components/app-shell";
 import { AccessError, roleLabels } from "@/features/auth/access";
 import { getWorkspace } from "@/server/workspace";
 
@@ -24,11 +24,7 @@ export default async function WorkspacePage() {
   const { user, summary } = workspace;
 
   return <div className="page-container">
-    <header className="app-header">
-      <Link href="/workspace" className="brand" aria-label="N5Deal home">N5Deal<span>.</span></Link>
-      <nav aria-label="Main navigation"><Link href="/workspace" aria-current="page">Workspace</Link></nav>
-      <AccountControls />
-    </header>
+    <AppHeader user={user} current="/workspace" />
     <main id="main-content" className="workspace-main">
       <div className="workspace-heading">
         <p className="eyebrow">{roleLabels[user.role].toUpperCase()} WORKSPACE</p>
@@ -50,9 +46,10 @@ export default async function WorkspacePage() {
           <h2 id="summary-heading">{summary.label}</h2>
           <p className="summary-value">{summary.value}</p>
           <p>{summary.detail}</p>
+          <Link href={user.role === "SELLER" ? "/my-assets" : user.role === "BUYER" ? "/my-profile" : "/buyers"} className="button button-secondary">{user.role === "SELLER" ? "Manage my assets" : user.role === "BUYER" ? "Manage my profile" : "Browse buyers"}</Link>
         </section>
       </div>
-      <aside className="stage-note"><h2>Your demo access is ready</h2><p>You can sign out or switch accounts above. Catalogs, profile editing, asset management, inquiries, and moderation tools will be added in later steps.</p></aside>
+      <aside className="stage-note"><h2>Explore the shared marketplace</h2><p>Browse published assets, manage your own listings as a seller, or maintain your investment profile as a buyer. Sellers and Managers can explore published buyer profiles. Inquiries and moderation tools are planned for later.</p><Link href="/assets" className="button button-secondary">Browse assets</Link></aside>
       <p className="footer-note">Shared demo · Fictional accounts and data · Demo access is not production authentication</p>
     </main>
   </div>;
