@@ -8,20 +8,34 @@ import { clearSession, createSession } from "./session";
 
 export type SignInState = { error: string | null };
 
-export async function signIn(_state: SignInState, formData: FormData): Promise<SignInState> {
-  const input = z.object({ personaId: z.uuid() }).safeParse({ personaId: formData.get("personaId") });
-  if (!input.success || !demoPersonas.some((persona) => persona.userId === input.data.personaId)) {
+export async function signIn(
+  _state: SignInState,
+  formData: FormData,
+): Promise<SignInState> {
+  const input = z
+    .object({ personaId: z.uuid() })
+    .safeParse({ personaId: formData.get("personaId") });
+  if (
+    !input.success ||
+    !demoPersonas.some((persona) => persona.userId === input.data.personaId)
+  ) {
     return { error: "Choose one of the demo accounts below." };
   }
 
   let destination: string;
   try {
     const user = await db.user.findUnique({
-      where: { id: input.data.personaId }, select: { id: true, status: true },
+      where: { id: input.data.personaId },
+      select: { id: true, status: true },
     });
-    if (!user) return { error: "This demo account is unavailable. Please choose another account." };
+    if (!user)
+      return {
+        error:
+          "This demo account is unavailable. Please choose another account.",
+      };
     await createSession(user.id);
-    destination = user.status === "ACTIVE" ? "/workspace" : "/account-unavailable";
+    destination =
+      user.status === "ACTIVE" ? "/workspace" : "/account-unavailable";
   } catch (error) {
     console.error("Demo sign-in failed", error);
     return { error: "We couldn’t sign you in. Please try again." };

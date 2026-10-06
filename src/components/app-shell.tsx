@@ -13,13 +13,21 @@ export function AppHeader({
     { href: "/workspace", label: "Workspace" },
     { href: "/assets", label: "Assets" },
   ];
-  if (user.role === "SELLER") links.push({ href: "/my-assets", label: "My assets" });
-  if (user.role === "BUYER") links.push({ href: "/my-profile", label: "My profile" });
+  if (user.role === "SELLER")
+    links.push({ href: "/my-assets", label: "My assets" });
+  if (user.role === "BUYER")
+    links.push({ href: "/my-profile", label: "My profile" });
   else links.push({ href: "/buyers", label: "Buyers" });
   if (user.role !== "MANAGER") {
-    links.push({ href: "/inbox", label: "Inbox" }, { href: "/sent", label: "Sent" });
+    links.push(
+      { href: "/inbox", label: "Inbox" },
+      { href: "/sent", label: "Sent" },
+    );
   } else {
-    links.push({ href: "/manager/participants", label: "Participants" }, { href: "/manager/assets", label: "All assets" });
+    links.push(
+      { href: "/manager/participants", label: "Participants" },
+      { href: "/manager/assets", label: "All assets" },
+    );
   }
 
   return (
@@ -63,7 +71,8 @@ export function AppShell({
         {children}
       </main>
       <p className="footer-note">
-        Shared demo · Fictional participants and data · All monetary values in EUR
+        Shared demo · Fictional participants and data · All monetary values in
+        EUR
       </p>
     </div>
   );

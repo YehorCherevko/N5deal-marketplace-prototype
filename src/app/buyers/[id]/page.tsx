@@ -24,7 +24,8 @@ export default async function BuyerDetailPage({
   const { id } = await params;
   const { user, profile, canEdit } = await pageAccess(() => getBuyerDetail(id));
   if (!profile) notFound();
-  const contact = user.role === "SELLER" ? await pageAccess(() => getBuyerContact(id)) : null;
+  const contact =
+    user.role === "SELLER" ? await pageAccess(() => getBuyerContact(id)) : null;
   const back =
     user.role === "BUYER"
       ? "/my-profile"
@@ -99,7 +100,13 @@ export default async function BuyerDetailPage({
           </p>
         </aside>
       </div>
-      {contact && <ContactForm target={{ kind: "buyer", id }} attemptKey={randomUUID()} assets={contact.assets} />}
+      {contact && (
+        <ContactForm
+          target={{ kind: "buyer", id }}
+          attemptKey={randomUUID()}
+          assets={contact.assets}
+        />
+      )}
     </AppShell>
   );
 }

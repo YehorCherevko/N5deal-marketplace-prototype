@@ -2,7 +2,10 @@ import "server-only";
 import { z } from "zod";
 import { db } from "@/server/db";
 import { requireUser } from "@/server/auth/authorization";
-import { validateInquiry, type InquiryTarget } from "@/features/inquiries/validation";
+import {
+  validateInquiry,
+  type InquiryTarget,
+} from "@/features/inquiries/validation";
 import { RecordUnavailable } from "@/features/marketplace/form-state";
 import { deliverInquiry, markRecipientRead } from "./delivery";
 

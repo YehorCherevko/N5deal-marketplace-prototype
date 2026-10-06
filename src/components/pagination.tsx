@@ -26,7 +26,9 @@ export function Pagination({
       ) : (
         <span />
       )}
-      <span>Page {page} of {pages}</span>
+      <span>
+        Page {page} of {pages}
+      </span>
       {page < pages ? (
         <Link
           className="button button-secondary"

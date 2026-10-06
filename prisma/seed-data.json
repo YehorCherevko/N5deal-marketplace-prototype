@@ -176,14 +176,8 @@
     {
       "userId": "08e69f15-fc09-5f2a-94e0-26a88797e57d",
       "thesis": "We seek acquisition opportunities in payments, fintech with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
-      "targetCategories": [
-        "PAYMENTS",
-        "FINTECH"
-      ],
-      "targetJurisdictions": [
-        "PL",
-        "LT"
-      ],
+      "targetCategories": ["PAYMENTS", "FINTECH"],
+      "targetJurisdictions": ["PL", "LT"],
       "budgetMin": "50000.00",
       "budgetMax": "2000000.00",
       "publishedAt": "2026-09-02T10:00:00.000Z",
@@ -193,10 +187,7 @@
     {
       "userId": "0443bd03-2453-5d8c-abd5-d54247e7e416",
       "thesis": "We seek acquisition opportunities in crypto, payments with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
-      "targetCategories": [
-        "CRYPTO",
-        "PAYMENTS"
-      ],
+      "targetCategories": ["CRYPTO", "PAYMENTS"],
       "targetJurisdictions": [],
       "budgetMin": null,
       "budgetMax": "5000000.00",
@@ -207,13 +198,8 @@
     {
       "userId": "2617de31-a54d-5abd-9e5d-a425390236cd",
       "thesis": "We seek acquisition opportunities in fintech with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
-      "targetCategories": [
-        "FINTECH"
-      ],
-      "targetJurisdictions": [
-        "DE",
-        "NL"
-      ],
+      "targetCategories": ["FINTECH"],
+      "targetJurisdictions": ["DE", "NL"],
       "budgetMin": "100000.00",
       "budgetMax": null,
       "publishedAt": "2026-09-04T10:00:00.000Z",
@@ -223,13 +209,8 @@
     {
       "userId": "56b6926d-2ffc-5a45-924e-214eaa36731b",
       "thesis": "We seek acquisition opportunities in payments with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
-      "targetCategories": [
-        "PAYMENTS"
-      ],
-      "targetJurisdictions": [
-        "FR",
-        "GB"
-      ],
+      "targetCategories": ["PAYMENTS"],
+      "targetJurisdictions": ["FR", "GB"],
       "budgetMin": "250000.00",
       "budgetMax": "1500000.00",
       "publishedAt": "2026-09-05T10:00:00.000Z",
@@ -239,10 +220,7 @@
     {
       "userId": "5561922e-18ca-5c43-99bf-ff19460f63ba",
       "thesis": "We seek acquisition opportunities in bank, other_financial with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
-      "targetCategories": [
-        "BANK",
-        "OTHER_FINANCIAL"
-      ],
+      "targetCategories": ["BANK", "OTHER_FINANCIAL"],
       "targetJurisdictions": [],
       "budgetMin": null,
       "budgetMax": null,
@@ -264,13 +242,8 @@
     {
       "userId": "5767d5c7-3c3a-56d8-9c4d-bacf8d78cf1e",
       "thesis": "We seek acquisition opportunities in crypto with a clear operating model and transparent financial information. This is a fictional demonstration profile.",
-      "targetCategories": [
-        "CRYPTO"
-      ],
-      "targetJurisdictions": [
-        "CA",
-        "US"
-      ],
+      "targetCategories": ["CRYPTO"],
+      "targetJurisdictions": ["CA", "US"],
       "budgetMin": "10000.00",
       "budgetMax": "1000000.00",
       "publishedAt": "2026-09-08T10:00:00.000Z",

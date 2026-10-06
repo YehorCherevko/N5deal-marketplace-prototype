@@ -7,10 +7,18 @@ export const demoPersonas = seed.demoPersonas;
 export async function getDemoAccounts() {
   const users = await db.user.findMany({
     where: { id: { in: demoPersonas.map((persona) => persona.userId) } },
-    select: { id: true, name: true, role: true, companyName: true, countryCode: true, status: true },
+    select: {
+      id: true,
+      name: true,
+      role: true,
+      companyName: true,
+      countryCode: true,
+      status: true,
+    },
   });
   return demoPersonas.map((persona) => ({
-    userId: persona.userId, label: persona.label,
+    userId: persona.userId,
+    label: persona.label,
     user: users.find((user) => user.id === persona.userId) ?? null,
   }));
 }

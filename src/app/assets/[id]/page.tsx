@@ -29,10 +29,15 @@ export default async function AssetDetailPage({
   const { id } = await params;
   const { user, asset, canEdit } = await pageAccess(() => getAssetDetail(id));
   if (!asset) notFound();
-  const contact = user.role === "BUYER" ? await pageAccess(() => getAssetContact(id)) : null;
+  const contact =
+    user.role === "BUYER" ? await pageAccess(() => getAssetContact(id)) : null;
   const returnTo = parameter(await searchParams, "returnTo");
-  const managerReturn = user.role === "MANAGER" && returnTo.startsWith("/manager/assets");
-  const back = backToCatalog(returnTo, managerReturn ? "/manager/assets" : "/assets");
+  const managerReturn =
+    user.role === "MANAGER" && returnTo.startsWith("/manager/assets");
+  const back = backToCatalog(
+    returnTo,
+    managerReturn ? "/manager/assets" : "/assets",
+  );
 
   return (
     <AppShell user={user} current="/assets">
@@ -45,7 +50,10 @@ export default async function AssetDetailPage({
           <h1>{asset.title}</h1>
         </div>
         {canEdit && (
-          <Link href={`/my-assets/${id}/edit`} className="button button-secondary">
+          <Link
+            href={`/my-assets/${id}/edit`}
+            className="button button-secondary"
+          >
             Edit asset
           </Link>
         )}
@@ -103,22 +111,34 @@ export default async function AssetDetailPage({
           </p>
           {asset.publishedAt && (
             <p className="field-hint">
-              Published {asset.publishedAt.toLocaleDateString("en-GB", {
+              Published{" "}
+              {asset.publishedAt.toLocaleDateString("en-GB", {
                 timeZone: "UTC",
               })}
             </p>
           )}
         </aside>
       </div>
-      {contact && (contact.complete ? (
-        <ContactForm target={{ kind: "asset", id }} attemptKey={randomUUID()} />
-      ) : (
-        <section className="contact-panel">
-          <h2>Complete your profile to contact this seller</h2>
-          <p>Provide your name, company or investor designation, registration country, an investment thesis of at least 30 characters, and a target category. Budgets and target markets are optional. Your profile may remain private.</p>
-          <Link href="/my-profile" className="button button-secondary">Complete my profile</Link>
-        </section>
-      ))}
+      {contact &&
+        (contact.complete ? (
+          <ContactForm
+            target={{ kind: "asset", id }}
+            attemptKey={randomUUID()}
+          />
+        ) : (
+          <section className="contact-panel">
+            <h2>Complete your profile to contact this seller</h2>
+            <p>
+              Provide your name, company or investor designation, registration
+              country, an investment thesis of at least 30 characters, and a
+              target category. Budgets and target markets are optional. Your
+              profile may remain private.
+            </p>
+            <Link href="/my-profile" className="button button-secondary">
+              Complete my profile
+            </Link>
+          </section>
+        ))}
     </AppShell>
   );
 }

@@ -1,22 +1,129 @@
 export const categories = {
-  BANK: "Banking", FINTECH: "Fintech", PAYMENTS: "Payments", CRYPTO: "Crypto", OTHER_FINANCIAL: "Other financial",
+  BANK: "Banking",
+  FINTECH: "Fintech",
+  PAYMENTS: "Payments",
+  CRYPTO: "Crypto",
+  OTHER_FINANCIAL: "Other financial",
 } as const;
 export const assetTypes = {
-  OPERATING_BUSINESS: "Operating business", LICENSED_ENTITY: "Licensed entity",
-  TECHNOLOGY_ASSET: "Technology asset", OTHER_FINANCIAL_ASSET: "Other financial asset",
+  OPERATING_BUSINESS: "Operating business",
+  LICENSED_ENTITY: "Licensed entity",
+  TECHNOLOGY_ASSET: "Technology asset",
+  OTHER_FINANCIAL_ASSET: "Other financial asset",
 } as const;
 export const businessStatuses = {
-  OPERATING: "Operating", NOT_OPERATING: "Not operating", NEVER_OPERATED: "Never operated", NOT_APPLICABLE: "Not applicable",
+  OPERATING: "Operating",
+  NOT_OPERATING: "Not operating",
+  NEVER_OPERATED: "Never operated",
+  NOT_APPLICABLE: "Not applicable",
 } as const;
-export const licenses = { BANKING: "Banking", EMI: "EMI", PI: "PI", PSP: "PSP", SPI: "SPI", MSB: "MSB", CASP: "CASP", OTHER: "Other" } as const;
-export const priceTypes = { FIXED: "Fixed price", ON_REQUEST: "On request" } as const;
+export const licenses = {
+  BANKING: "Banking",
+  EMI: "EMI",
+  PI: "PI",
+  PSP: "PSP",
+  SPI: "SPI",
+  MSB: "MSB",
+  CASP: "CASP",
+  OTHER: "Other",
+} as const;
+export const priceTypes = {
+  FIXED: "Fixed price",
+  ON_REQUEST: "On request",
+} as const;
 export const countryCodes = [
-  "AE", "AU", "AT", "BE", "BR", "BG", "CA", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR",
-  "HK", "HR", "HU", "IE", "IN", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MT", "NL", "NO", "NZ", "PL", "PT",
-  "RO", "SE", "SG", "SI", "SK", "US",
+  "AE",
+  "AU",
+  "AT",
+  "BE",
+  "BR",
+  "BG",
+  "CA",
+  "CH",
+  "CY",
+  "CZ",
+  "DE",
+  "DK",
+  "EE",
+  "ES",
+  "FI",
+  "FR",
+  "GB",
+  "GR",
+  "HK",
+  "HR",
+  "HU",
+  "IE",
+  "IN",
+  "IS",
+  "IT",
+  "JP",
+  "LI",
+  "LT",
+  "LU",
+  "LV",
+  "MT",
+  "NL",
+  "NO",
+  "NZ",
+  "PL",
+  "PT",
+  "RO",
+  "SE",
+  "SG",
+  "SI",
+  "SK",
+  "US",
 ] as const;
-const countryLabels: Record<typeof countryCodes[number], string> = {
-  AE: "United Arab Emirates", AU: "Australia", AT: "Austria", BE: "Belgium", BR: "Brazil", BG: "Bulgaria", CA: "Canada", CH: "Switzerland", CY: "Cyprus", CZ: "Czechia", DE: "Germany", DK: "Denmark", EE: "Estonia", ES: "Spain", FI: "Finland", FR: "France", GB: "United Kingdom", GR: "Greece", HK: "Hong Kong", HR: "Croatia", HU: "Hungary", IE: "Ireland", IN: "India", IS: "Iceland", IT: "Italy", JP: "Japan", LI: "Liechtenstein", LT: "Lithuania", LU: "Luxembourg", LV: "Latvia", MT: "Malta", NL: "Netherlands", NO: "Norway", NZ: "New Zealand", PL: "Poland", PT: "Portugal", RO: "Romania", SE: "Sweden", SG: "Singapore", SI: "Slovenia", SK: "Slovakia", US: "United States",
+const countryLabels: Record<(typeof countryCodes)[number], string> = {
+  AE: "United Arab Emirates",
+  AU: "Australia",
+  AT: "Austria",
+  BE: "Belgium",
+  BR: "Brazil",
+  BG: "Bulgaria",
+  CA: "Canada",
+  CH: "Switzerland",
+  CY: "Cyprus",
+  CZ: "Czechia",
+  DE: "Germany",
+  DK: "Denmark",
+  EE: "Estonia",
+  ES: "Spain",
+  FI: "Finland",
+  FR: "France",
+  GB: "United Kingdom",
+  GR: "Greece",
+  HK: "Hong Kong",
+  HR: "Croatia",
+  HU: "Hungary",
+  IE: "Ireland",
+  IN: "India",
+  IS: "Iceland",
+  IT: "Italy",
+  JP: "Japan",
+  LI: "Liechtenstein",
+  LT: "Lithuania",
+  LU: "Luxembourg",
+  LV: "Latvia",
+  MT: "Malta",
+  NL: "Netherlands",
+  NO: "Norway",
+  NZ: "New Zealand",
+  PL: "Poland",
+  PT: "Portugal",
+  RO: "Romania",
+  SE: "Sweden",
+  SG: "Singapore",
+  SI: "Slovenia",
+  SK: "Slovakia",
+  US: "United States",
 };
-export const countries = countryCodes.map((value) => ({ value, label: countryLabels[value] })).sort((a, b) => a.label.localeCompare(b.label, "en"));
-export function countryName(code: string | null) { return code ? countryLabels[code as keyof typeof countryLabels] ?? code : "Not provided"; }
+export const countries = countryCodes
+  .map((value) => ({ value, label: countryLabels[value] }))
+  .sort((a, b) => a.label.localeCompare(b.label, "en"));
+export function countryName(code: string | null) {
+  return code
+    ? (countryLabels[code as keyof typeof countryLabels] ?? code)
+    : "Not provided";
+}

@@ -25,7 +25,8 @@ export default async function MyAssetsPage() {
         <section className="empty-state">
           <h2>Your first opportunity starts here.</h2>
           <p>
-            Create a draft with a title and complete the details when you’re ready.
+            Create a draft with a title and complete the details when you’re
+            ready.
           </p>
         </section>
       ) : (
@@ -39,7 +40,9 @@ export default async function MyAssetsPage() {
                   {asset.publicationStatus}
                 </span>
                 <h2>
-                  <Link href={`/my-assets/${asset.id}/edit`}>{asset.title}</Link>
+                  <Link href={`/my-assets/${asset.id}/edit`}>
+                    {asset.title}
+                  </Link>
                 </h2>
                 <p>
                   {asset.askingPrice
@@ -50,7 +53,10 @@ export default async function MyAssetsPage() {
                 </p>
               </div>
               <div className="account-controls">
-                <Link href={`/assets/${asset.id}`} className="button button-quiet">
+                <Link
+                  href={`/assets/${asset.id}`}
+                  className="button button-quiet"
+                >
                   View
                 </Link>
                 <Link

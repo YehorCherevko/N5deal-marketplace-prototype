@@ -6,12 +6,18 @@ import { SubmitButton } from "@/components/submit-button";
 import { moderateParticipant } from "@/server/moderation/actions";
 import { emptyFormState } from "../marketplace/form-state";
 
-export function ModerationForm({ id, status, returnTo }: {
+export function ModerationForm({
+  id,
+  status,
+  returnTo,
+}: {
   id: string;
   status: "ACTIVE" | "SUSPENDED";
   returnTo: string;
 }) {
-  const [intent, setIntent] = useState(status === "ACTIVE" ? "suspend" : "reactivate");
+  const [intent, setIntent] = useState(
+    status === "ACTIVE" ? "suspend" : "reactivate",
+  );
   const [reason, setReason] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [state, action, pending] = useActionState(
@@ -20,10 +26,22 @@ export function ModerationForm({ id, status, returnTo }: {
   );
 
   return (
-    <form action={action} className="editor-form moderation-form" noValidate aria-busy={pending}>
+    <form
+      action={action}
+      className="editor-form moderation-form"
+      noValidate
+      aria-busy={pending}
+    >
       <h2>Change participant access</h2>
-      <p className="editor-note">Every change requires a reason. Assets, profiles, and inquiry history are preserved.</p>
-      {state.error && <p className="form-error" role="alert">{state.error}</p>}
+      <p className="editor-note">
+        Every change requires a reason. Assets, profiles, and inquiry history
+        are preserved.
+      </p>
+      {state.error && (
+        <p className="form-error" role="alert">
+          {state.error}
+        </p>
+      )}
       <fieldset disabled={pending}>
         <Field name="action" label="Action" error={state.fields.action}>
           <select
@@ -35,7 +53,11 @@ export function ModerationForm({ id, status, returnTo }: {
               setConfirmed(false);
             }}
           >
-            {status === "ACTIVE" ? <option value="suspend">Suspend</option> : <option value="reactivate">Reactivate</option>}
+            {status === "ACTIVE" ? (
+              <option value="suspend">Suspend</option>
+            ) : (
+              <option value="reactivate">Reactivate</option>
+            )}
             <option value="remove">Remove</option>
           </select>
         </Field>
@@ -59,7 +81,11 @@ export function ModerationForm({ id, status, returnTo }: {
         </Field>
         {intent === "remove" && (
           <div className="remove-confirmation">
-            <p>Removal permanently blocks this participant’s marketplace access in this prototype. Related profiles, assets, and inquiries remain stored. Removed participants cannot be restored here.</p>
+            <p>
+              Removal permanently blocks this participant’s marketplace access
+              in this prototype. Related profiles, assets, and inquiries remain
+              stored. Removed participants cannot be restored here.
+            </p>
             <label>
               <input
                 type="checkbox"
@@ -67,12 +93,16 @@ export function ModerationForm({ id, status, returnTo }: {
                 checked={confirmed}
                 onChange={(event) => setConfirmed(event.target.checked)}
                 aria-invalid={!!state.fields.confirmRemove}
-                aria-describedby={state.fields.confirmRemove ? "confirmRemove-error" : undefined}
+                aria-describedby={
+                  state.fields.confirmRemove ? "confirmRemove-error" : undefined
+                }
               />
               I confirm removal while preserving related records.
             </label>
             {state.fields.confirmRemove && (
-              <p id="confirmRemove-error" className="field-error">{state.fields.confirmRemove.join(" ")}</p>
+              <p id="confirmRemove-error" className="field-error">
+                {state.fields.confirmRemove.join(" ")}
+              </p>
             )}
           </div>
         )}
@@ -83,7 +113,9 @@ export function ModerationForm({ id, status, returnTo }: {
           >
             {intent === "remove"
               ? "Remove participant"
-              : intent === "suspend" ? "Suspend participant" : "Reactivate participant"}
+              : intent === "suspend"
+                ? "Suspend participant"
+                : "Reactivate participant"}
           </SubmitButton>
         </div>
       </fieldset>

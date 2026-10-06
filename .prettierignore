@@ -1,0 +1,17 @@
+**/*.md
+**/*.mdx
+node_modules/
+src/generated/
+next-env.d.ts
+.next/
+out/
+dist/
+build/
+coverage/
+.cache/
+*.tsbuildinfo
+*.log
+.DS_Store
+.env*
+package-lock.json
+prisma/migrations/

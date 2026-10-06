@@ -42,8 +42,8 @@ export default async function BuyersPage({
           <p className="eyebrow">INVESTMENT INTERESTS</p>
           <h1>Explore buyers</h1>
           <p className="lead">
-            Published profiles from active buyers, with their investment interests
-            and target markets.
+            Published profiles from active buyers, with their investment
+            interests and target markets.
           </p>
         </div>
       </div>
@@ -89,7 +89,8 @@ export default async function BuyersPage({
                   </div>
                   <h2 id={`buyer-${profile.userId}`}>{profile.user.name}</h2>
                   <p className="buyer-company">
-                    {profile.user.companyName} · {countryName(profile.user.countryCode)}
+                    {profile.user.companyName} ·{" "}
+                    {countryName(profile.user.countryCode)}
                   </p>
                   <p className="card-price buyer-budget">
                     {formatBudget(
@@ -98,11 +99,14 @@ export default async function BuyersPage({
                     )}
                   </p>
                   <p className="field-hint">
-                    Target markets: {profile.targetJurisdictions.length
+                    Target markets:{" "}
+                    {profile.targetJurisdictions.length
                       ? profile.targetJurisdictions.map(countryName).join(", ")
                       : "Any market"}
                   </p>
-                  <p className="card-excerpt">{profile.thesis?.slice(0, 160)}</p>
+                  <p className="card-excerpt">
+                    {profile.thesis?.slice(0, 160)}
+                  </p>
                   <span className="card-link">
                     View buyer <span aria-hidden="true">→</span>
                   </span>
@@ -110,7 +114,12 @@ export default async function BuyersPage({
               ))}
             </div>
           )}
-          <Pagination base="/buyers" filters={filters} page={page} pages={pages} />
+          <Pagination
+            base="/buyers"
+            filters={filters}
+            page={page}
+            pages={pages}
+          />
         </>
       )}
     </AppShell>

@@ -17,9 +17,13 @@ try {
   await admin.query('CREATE DATABASE "n5deal_test"');
   await admin.end();
   for (const command of ["db:migrate", "verify:db", "verify:fixtures"]) {
-    const result = spawnSync("npm", ["run", command], { stdio: "inherit", env: process.env });
+    const result = spawnSync("npm", ["run", command], {
+      stdio: "inherit",
+      env: process.env,
+    });
     if (result.error) throw result.error;
-    if (result.status !== 0) throw new Error(`${command} failed with status ${result.status}`);
+    if (result.status !== 0)
+      throw new Error(`${command} failed with status ${result.status}`);
   }
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);

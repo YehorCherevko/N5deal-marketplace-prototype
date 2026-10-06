@@ -10,10 +10,13 @@ export default defineConfig([
     files: ["src/**/*.ts", "src/**/*.tsx"],
     ignores: ["src/server/**", "src/generated/**"],
     rules: {
-      "no-restricted-imports": ["error", {
-        patterns: ["@/generated/prisma/*", "**/generated/prisma/*"],
-        paths: ["@prisma/client", "@prisma/adapter-pg", "pg"],
-      }],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: ["@/generated/prisma/*", "**/generated/prisma/*"],
+          paths: ["@prisma/client", "@prisma/adapter-pg", "pg"],
+        },
+      ],
     },
   },
 ]);

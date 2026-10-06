@@ -18,7 +18,13 @@ export function ProfileForm({
   const [values, setValues] = useState(initial);
   const [state, action, pending] = useActionState(saveProfile, emptyFormState);
   const attributes = (
-    name: "name" | "companyName" | "countryCode" | "thesis" | "budgetMin" | "budgetMax",
+    name:
+      | "name"
+      | "companyName"
+      | "countryCode"
+      | "thesis"
+      | "budgetMin"
+      | "budgetMax",
   ) => ({
     id: name,
     name,
@@ -37,7 +43,12 @@ export function ProfileForm({
   });
 
   return (
-    <form action={action} className="editor-form" noValidate aria-busy={pending}>
+    <form
+      action={action}
+      className="editor-form"
+      noValidate
+      aria-busy={pending}
+    >
       <p className="editor-note">
         {published
           ? "Your profile is published. Keep it complete, or hide it before saving incomplete changes."

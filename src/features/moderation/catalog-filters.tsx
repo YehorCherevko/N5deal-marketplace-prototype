@@ -4,15 +4,30 @@ import { categories, countries } from "../marketplace/options";
 import { catalogUrl } from "../marketplace/search";
 import type { ParticipantFilters, ManagerAssetFilters } from "./filters";
 
-export function ParticipantCatalogFilters({ filters, errors }: {
+export function ParticipantCatalogFilters({
+  filters,
+  errors,
+}: {
   filters: ParticipantFilters;
   errors: Record<string, string[]>;
 }) {
-  const attributes = (name: keyof ParticipantFilters) => ({ name, id: name, defaultValue: filters[name] });
+  const attributes = (name: keyof ParticipantFilters) => ({
+    name,
+    id: name,
+    defaultValue: filters[name],
+  });
   return (
-    <FilterPanel action="/manager/participants" key={catalogUrl("/manager/participants", filters)}>
+    <FilterPanel
+      action="/manager/participants"
+      key={catalogUrl("/manager/participants", filters)}
+    >
       <Field name="q" label="Search participants" error={errors.q}>
-        <input {...attributes("q")} placeholder="Name, company, or email" aria-invalid={!!errors.q} aria-describedby={errors.q ? "q-error" : undefined} />
+        <input
+          {...attributes("q")}
+          placeholder="Name, company, or email"
+          aria-invalid={!!errors.q}
+          aria-describedby={errors.q ? "q-error" : undefined}
+        />
       </Field>
       <Field name="role" label="Role">
         <select {...attributes("role")}>
@@ -32,7 +47,11 @@ export function ParticipantCatalogFilters({ filters, errors }: {
       <Field name="country" label="Registration country">
         <select {...attributes("country")}>
           <option value="">All countries</option>
-          {countries.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
+          {countries.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
         </select>
       </Field>
       <Field name="sort" label="Sort by">
@@ -45,16 +64,32 @@ export function ParticipantCatalogFilters({ filters, errors }: {
   );
 }
 
-export function ManagerAssetCatalogFilters({ filters, errors, sellers }: {
+export function ManagerAssetCatalogFilters({
+  filters,
+  errors,
+  sellers,
+}: {
   filters: ManagerAssetFilters;
   errors: Record<string, string[]>;
   sellers: { id: string; name: string; status: string }[];
 }) {
-  const attributes = (name: keyof ManagerAssetFilters) => ({ name, id: name, defaultValue: filters[name] });
+  const attributes = (name: keyof ManagerAssetFilters) => ({
+    name,
+    id: name,
+    defaultValue: filters[name],
+  });
   return (
-    <FilterPanel action="/manager/assets" key={catalogUrl("/manager/assets", filters)}>
+    <FilterPanel
+      action="/manager/assets"
+      key={catalogUrl("/manager/assets", filters)}
+    >
       <Field name="q" label="Search all assets" error={errors.q}>
-        <input {...attributes("q")} placeholder="Title or description" aria-invalid={!!errors.q} aria-describedby={errors.q ? "q-error" : undefined} />
+        <input
+          {...attributes("q")}
+          placeholder="Title or description"
+          aria-invalid={!!errors.q}
+          aria-describedby={errors.q ? "q-error" : undefined}
+        />
       </Field>
       <Field name="category" label="Category">
         <select {...attributes("category")}>
@@ -65,7 +100,11 @@ export function ManagerAssetCatalogFilters({ filters, errors, sellers }: {
       <Field name="jurisdiction" label="Jurisdiction">
         <select {...attributes("jurisdiction")}>
           <option value="">All jurisdictions</option>
-          {countries.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
+          {countries.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
         </select>
       </Field>
       <Field name="status" label="Publication status">
@@ -80,7 +119,9 @@ export function ManagerAssetCatalogFilters({ filters, errors, sellers }: {
         <select {...attributes("seller")}>
           <option value="">All Sellers</option>
           {sellers.map((seller) => (
-            <option key={seller.id} value={seller.id}>{seller.name} ({seller.status})</option>
+            <option key={seller.id} value={seller.id}>
+              {seller.name} ({seller.status})
+            </option>
           ))}
         </select>
       </Field>

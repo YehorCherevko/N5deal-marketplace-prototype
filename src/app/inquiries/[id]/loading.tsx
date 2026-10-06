@@ -1,3 +1,5 @@
 import { LoadingState } from "@/components/loading-state";
 
-export default function Loading() { return <LoadingState label="Loading inquiry" />; }
+export default function Loading() {
+  return <LoadingState label="Loading inquiry" />;
+}

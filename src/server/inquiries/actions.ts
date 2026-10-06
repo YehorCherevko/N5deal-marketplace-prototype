@@ -15,11 +15,15 @@ export type SendInquiryState = FormState & {
   idempotencyConflict?: true;
 };
 
-export async function sendInquiry(target: InquiryTarget, _state: SendInquiryState, form: FormData): Promise<SendInquiryState> {
+export async function sendInquiry(
+  target: InquiryTarget,
+  _state: SendInquiryState,
+  form: FormData,
+): Promise<SendInquiryState> {
   const input = {
     body: form.get("body") ?? "",
     idempotencyKey: form.get("idempotencyKey") ?? "",
-    assetId: target.kind === "buyer" ? form.get("assetId") ?? "" : "",
+    assetId: target.kind === "buyer" ? (form.get("assetId") ?? "") : "",
   };
   let inquiryId;
   try {
@@ -28,17 +32,32 @@ export async function sendInquiry(target: InquiryTarget, _state: SendInquiryStat
     return {
       ...formFailure(error),
       idempotencyKey: String(input.idempotencyKey),
-      ...(error instanceof IdempotencyConflict ? { idempotencyConflict: true as const } : {}),
+      ...(error instanceof IdempotencyConflict
+        ? { idempotencyConflict: true as const }
+        : {}),
     };
   }
   revalidatePath("/inbox");
   revalidatePath("/sent");
-  return { error: null, fields: {}, inquiryId, idempotencyKey: String(input.idempotencyKey) };
+  return {
+    error: null,
+    fields: {},
+    inquiryId,
+    idempotencyKey: String(input.idempotencyKey),
+  };
 }
 
-export async function markInquiryRead(id: string, returnTo: string): Promise<FormState> {
-  try { await readCurrentInquiry(id); } catch (error) { return formFailure(error); }
-  for (const path of ["/inbox", "/sent", `/inquiries/${id}`]) revalidatePath(path);
+export async function markInquiryRead(
+  id: string,
+  returnTo: string,
+): Promise<FormState> {
+  try {
+    await readCurrentInquiry(id);
+  } catch (error) {
+    return formFailure(error);
+  }
+  for (const path of ["/inbox", "/sent", `/inquiries/${id}`])
+    revalidatePath(path);
   const back = backToCatalog(returnTo, "/inbox");
   redirect(`/inquiries/${id}?read=1&returnTo=${encodeURIComponent(back)}`);
 }

@@ -6,9 +6,14 @@ const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 function createClient() {
   const connectionString = process.env.DATABASE_URL;
-  if (!connectionString) throw new Error("DATABASE_URL is required on the server.");
+  if (!connectionString)
+    throw new Error("DATABASE_URL is required on the server.");
   return new PrismaClient({
-    adapter: new PrismaPg({ connectionString, connectionTimeoutMillis: 5000, max: 5 }),
+    adapter: new PrismaPg({
+      connectionString,
+      connectionTimeoutMillis: 5000,
+      max: 5,
+    }),
   });
 }
 

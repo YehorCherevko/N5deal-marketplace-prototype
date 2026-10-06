@@ -27,7 +27,8 @@ export function ContactForm({
       } catch (error) {
         if (!(error instanceof TypeError)) throw error;
         return {
-          error: "We couldn’t confirm delivery. Retry with the same message; this attempt will be saved only once.",
+          error:
+            "We couldn’t confirm delivery. Retry with the same message; this attempt will be saved only once.",
           fields: {},
           idempotencyKey: String(form.get("idempotencyKey")),
         };
@@ -35,15 +36,20 @@ export function ContactForm({
     },
     emptyFormState,
   );
-  const currentState: SendInquiryState = state.idempotencyKey === key ? state : emptyFormState;
+  const currentState: SendInquiryState =
+    state.idempotencyKey === key ? state : emptyFormState;
 
   if (currentState.inquiryId) {
     return (
       <section className="contact-panel">
-        <p className="success-message" role="status">Inquiry sent.</p>
+        <p className="success-message" role="status">
+          Inquiry sent.
+        </p>
         <p>Your saved inquiry is available in Sent.</p>
         <div className="form-actions">
-          <Link href="/sent" className="button button-primary">Go to Sent</Link>
+          <Link href="/sent" className="button button-primary">
+            Go to Sent
+          </Link>
           <button
             type="button"
             className="button button-secondary"
@@ -62,17 +68,29 @@ export function ContactForm({
 
   return (
     <section className="contact-panel" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact {target.kind === "asset" ? "seller" : "buyer"}</h2>
-      <p className="field-hint">Your message is saved in Sent and the recipient’s Inbox.</p>
+      <h2 id="contact-heading">
+        Contact {target.kind === "asset" ? "seller" : "buyer"}
+      </h2>
+      <p className="field-hint">
+        Your message is saved in Sent and the recipient’s Inbox.
+      </p>
       <form action={action} noValidate aria-busy={pending}>
         <input type="hidden" name="idempotencyKey" value={key} />
-        {currentState.error && <p className="form-error" role="alert">{currentState.error}</p>}
+        {currentState.error && (
+          <p className="form-error" role="alert">
+            {currentState.error}
+          </p>
+        )}
         <fieldset disabled={pending}>
           {target.kind === "buyer" && (
             <Field
               name="assetId"
               label="Attach your published asset (optional)"
-              hint={assets.length ? "Only your published assets can be attached." : "You have no published assets. You can send without one."}
+              hint={
+                assets.length
+                  ? "Only your published assets can be attached."
+                  : "You have no published assets. You can send without one."
+              }
               error={currentState.fields.assetId}
             >
               <select
@@ -80,12 +98,16 @@ export function ContactForm({
                 name="assetId"
                 value={assetId}
                 aria-invalid={!!currentState.fields.assetId}
-                aria-describedby={currentState.fields.assetId ? "assetId-error" : undefined}
+                aria-describedby={
+                  currentState.fields.assetId ? "assetId-error" : undefined
+                }
                 onChange={(event) => setAssetId(event.target.value)}
               >
                 <option value="">No asset attached</option>
                 {assets.map((asset) => (
-                  <option key={asset.id} value={asset.id}>{asset.title}</option>
+                  <option key={asset.id} value={asset.id}>
+                    {asset.title}
+                  </option>
                 ))}
               </select>
             </Field>
@@ -104,20 +126,27 @@ export function ContactForm({
               required
               value={body}
               aria-invalid={!!currentState.fields.body}
-              aria-describedby={currentState.fields.body ? "body-error" : undefined}
+              aria-describedby={
+                currentState.fields.body ? "body-error" : undefined
+              }
               onChange={(event) => setBody(event.target.value)}
             />
           </Field>
-          <SubmitButton pendingLabel="Sending…">Contact {target.kind === "asset" ? "seller" : "buyer"}</SubmitButton>
+          <SubmitButton pendingLabel="Sending…">
+            Contact {target.kind === "asset" ? "seller" : "buyer"}
+          </SubmitButton>
         </fieldset>
         {currentState.idempotencyConflict && (
           <div>
             <p className="field-hint">
-              Your previous attempt was already saved. Starting a new inquiry keeps
-              your edits and creates a separate message only when you submit.
+              Your previous attempt was already saved. Starting a new inquiry
+              keeps your edits and creates a separate message only when you
+              submit.
             </p>
             <div className="form-actions">
-              <Link href="/sent" className="button button-secondary">Go to Sent</Link>
+              <Link href="/sent" className="button button-secondary">
+                Go to Sent
+              </Link>
               <button
                 type="button"
                 className="button button-secondary"

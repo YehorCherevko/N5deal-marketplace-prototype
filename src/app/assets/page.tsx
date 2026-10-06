@@ -20,7 +20,8 @@ export default async function AssetsPage({
 }) {
   const params = await searchParams;
   const result = await pageAccess(() => getAssetCatalog(params));
-  const { user, filters, errors, items, total, catalogTotal, page, pages } = result;
+  const { user, filters, errors, items, total, catalogTotal, page, pages } =
+    result;
   if (
     needsNormalization(
       params,
@@ -113,7 +114,12 @@ export default async function AssetsPage({
               ))}
             </div>
           )}
-          <Pagination base="/assets" filters={filters} page={page} pages={pages} />
+          <Pagination
+            base="/assets"
+            filters={filters}
+            page={page}
+            pages={pages}
+          />
         </>
       )}
     </AppShell>

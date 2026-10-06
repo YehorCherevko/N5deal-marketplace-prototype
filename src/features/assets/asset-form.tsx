@@ -50,7 +50,12 @@ export function AssetForm({
   });
 
   return (
-    <form action={action} className="editor-form" noValidate aria-busy={pending}>
+    <form
+      action={action}
+      className="editor-form"
+      noValidate
+      aria-busy={pending}
+    >
       <p className="editor-note">
         {status === "PUBLISHED"
           ? "Published assets must stay complete. Archive this asset before saving incomplete changes."
@@ -86,7 +91,11 @@ export function AssetForm({
               <SelectOptions values={categories} />
             </select>
           </Field>
-          <Field name="assetType" label="Asset type" error={state.fields.assetType}>
+          <Field
+            name="assetType"
+            label="Asset type"
+            error={state.fields.assetType}
+          >
             <select {...attributes("assetType")}>
               <option value="">Select to publish</option>
               <SelectOptions values={assetTypes} />
@@ -126,7 +135,11 @@ export function AssetForm({
               <SelectOptions values={businessStatuses} />
             </select>
           </Field>
-          <Field name="priceType" label="Price mode" error={state.fields.priceType}>
+          <Field
+            name="priceType"
+            label="Price mode"
+            error={state.fields.priceType}
+          >
             <select {...attributes("priceType")}>
               <option value="">Select to publish</option>
               <SelectOptions values={priceTypes} />
@@ -172,8 +185,8 @@ export function ArchiveAssetForm({ id }: { id: string }) {
   return (
     <form action={action} className="lifecycle-form">
       <p>
-        Archiving hides the saved asset from the ordinary catalog and retains its
-        publication date.
+        Archiving hides the saved asset from the ordinary catalog and retains
+        its publication date.
       </p>
       {state.error && (
         <p className="form-error" role="alert">
