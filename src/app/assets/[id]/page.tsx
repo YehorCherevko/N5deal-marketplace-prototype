@@ -40,7 +40,10 @@ export default async function AssetDetailPage({
   );
 
   return (
-    <AppShell user={user} current="/assets">
+    <AppShell
+      user={user}
+      current={managerReturn ? "/manager/assets" : "/assets"}
+    >
       <Link href={back} className="back-link">
         ← {managerReturn ? "Back to Manager assets" : "Back to assets"}
       </Link>
