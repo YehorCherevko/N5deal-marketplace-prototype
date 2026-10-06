@@ -1,4 +1,5 @@
 node_modules/
+.vercel/
 docs/*
 !docs/N5Deal-Scope-and-Acceptance.md
 !docs/DATABASE-DESIGN.md

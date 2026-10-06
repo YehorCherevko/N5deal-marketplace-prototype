@@ -1,6 +1,7 @@
 **/*.md
 **/*.mdx
 node_modules/
+.vercel/
 src/generated/
 next-env.d.ts
 .next/

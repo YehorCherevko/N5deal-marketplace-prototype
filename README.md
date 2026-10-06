@@ -1,141 +1,126 @@
 # N5Deal marketplace prototype
 
-Step 3 provides a local Next.js App Router + strict TypeScript application, PostgreSQL in Docker, Prisma 7 migrations, and an executable seed. The landing page describes the current foundation. Authentication, catalogs, business CRUD, inquiries, moderation, AI, and the complete UI remain for later steps. Deployment is postponed until the end of the project.
+A small marketplace for fictional financial businesses and assets. Sellers manage listings and find buyers; Buyers maintain investment profiles and contact Sellers; a Platform Manager moderates participant access. Built with Next.js App Router, strict TypeScript, PostgreSQL, and Prisma 7.
 
-All fixtures are fictional. The planned demo-persona selection is not production authentication; no login or account selection is implemented now.
+[Source repository](https://github.com/YehorCherevko/N5deal-marketplace-prototype)
 
-## Clean checkout startup
+## Try the demo
 
-Install Docker Desktop (macOS/Windows) or Docker Engine with Docker Compose (Linux), and start its daemon. Host Node.js and PostgreSQL are not required. Run these commands from the repository root:
+Open `/sign-in`, select a demo account, and continue. No registration or password is required. Use **Switch account** to try another role; **Sign out** clears the session.
+
+| Persona | Role | Starting point |
+| --- | --- | --- |
+| Alex Morgan | Buyer | Existing published profile |
+| Jamie Chen | Buyer | Second participant for access checks |
+| Sam Rivera | Buyer | No investment profile yet |
+| Avery Reed | Seller | Primary asset owner |
+| Cameron Ellis | Seller | Second asset owner |
+| Demo Manager | Platform Manager | Participant and asset administration |
+
+- **Seller:** open My assets, create a draft with a title, complete it, and publish. Edit or archive it later. Filter Buyers, open a profile, and send an inquiry with or without one of your published assets. Open Sent or Inbox to inspect saved inquiries.
+- **Buyer:** open My profile, enter your investor designation, registration country, thesis, and target categories. Save privately or publish, then browse and filter Assets. A complete private profile can contact Sellers. Open Inbox and explicitly mark incoming inquiries as read.
+- **Platform Manager:** search Participants and All assets, inspect related records and moderation history, and suspend/reactivate a Buyer or Seller with a reason. Removal requires confirmation and is terminal. Prefer reversible suspension when evaluating the shared demo; do not remove the required sign-in personas.
+
+All demo visitors share persistent data and can choose the Manager persona. Account boundaries enforce application roles and ownership, but this open persona selection is **not production authentication or confidentiality between visitors**. Use fictional data only.
+
+## Run locally
+
+Prerequisite: Docker Desktop or Docker Engine with Docker Compose, with its daemon running. Docker runs **both the application and PostgreSQL**. Host Node.js and PostgreSQL are optional. Docker and `.nvmrc` pin Node 22.22.2; npm and `package-lock.json` manage dependencies.
 
 ```sh
 cp .env.example .env
 docker compose build app
+docker compose run --rm --no-deps --entrypoint node app -e 'console.log(require("node:crypto").randomBytes(48).toString("base64url"))'
+```
+
+Set `SESSION_SECRET` in `.env` to the generated value. Keep the fictional local PostgreSQL credentials consistent with `DATABASE_URL`, and leave `SESSION_COOKIE_SECURE=false` for local HTTP. Never commit `.env` or reuse its local credentials on a hosted database.
+
+```sh
 docker compose up -d db
 docker compose run --rm app npm run db:migrate
 docker compose run --rm app npm run db:seed
 docker compose up -d app
 ```
 
-Open [localhost:3000](http://localhost:3000). Inspect startup with `docker compose logs -f app db` and service state with `docker compose ps`.
+Open [localhost:3000](http://localhost:3000). Inspect services with `docker compose ps` and `docker compose logs -f app db`.
 
-Migrations and seeds are explicit one-off commands. Application startup, HTTP requests, hot reload, and container restarts never migrate, seed, or reset data.
+The repository is bind-mounted for development with Webpack polling. Dependencies and `.next` use separate named volumes. The entrypoint synchronizes dependencies when the lockfile changes and generates Prisma Client; it never migrates, seeds, or resets business data automatically. If using VS Code on the host, run `npm ci` with the Node version in `.nvmrc` so its TypeScript service can resolve dependencies.
 
-## Configuration
-
-`.env.example` contains fictional local-only credentials; `.env` is ignored by Git and Docker image builds. Docker Compose loads it into the app and uses its PostgreSQL settings for the database. Prisma CLI and standalone scripts load it with dotenv.
-
-| Variable | Purpose |
+| Environment variable | Purpose |
 | --- | --- |
-| `POSTGRES_USER` | Local database owner, initially `n5deal` |
-| `POSTGRES_PASSWORD` | Local demo password, initially `local-demo-only` |
-| `POSTGRES_DB` | Local demo database, `n5deal_demo` |
-| `DATABASE_URL` | Direct PostgreSQL connection string; inside Compose the host is `db` and port is `5432` |
-| `LOCAL_DEMO_RESET` | Defaults to `false`; must be explicitly `true` to reset the local demo |
-| `NODE_ENV` | Next.js selects development/build mode automatically; reset and database tests reject `production` |
+| `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` | Local Compose database configuration |
+| `DATABASE_URL` | Application PostgreSQL connection; local Compose host is `db` |
+| `DATABASE_URL_UNPOOLED` | Optional direct connection for Prisma CLI; empty locally |
+| `SESSION_SECRET` | Server-only signing secret, at least 32 bytes |
+| `SESSION_COOKIE_SECURE` | `false` for local HTTP; `true` for hosted HTTPS |
+| `LOCAL_DEMO_RESET` | Normally `false`; enables the guarded local reset only |
 
-Keep `DATABASE_URL` credentials consistent with `POSTGRES_*`. Passwords with URL-reserved characters must be URL encoded in the connection string. PostgreSQL initialization variables take effect only on the first creation of its data volume; changing `.env` does not change an existing database password.
+### Local production build and start
 
-The app binds to host loopback only. PostgreSQL is available within the Compose network and is not published to a host port. Server secrets must not use `NEXT_PUBLIC_` names. The database module is marked `server-only`, so Next.js rejects its use from Client Components. ESLint also restricts direct Prisma/pg imports in application files outside `src/server/`.
-
-## Database commands
-
-```sh
-docker compose run --rm app npm run db:validate
-docker compose run --rm app npm run db:generate
-docker compose run --rm app npm run db:migrate
-docker compose run --rm app npm run db:seed
-docker compose run --rm app npm run verify:fixtures
-```
-
-`db:migrate` uses `prisma migrate deploy` with the versioned migrations. The initial migration was generated using `prisma migrate dev --create-only --name init`; the exact supplied `constraints.sql` was appended before its first application. It includes the supplemental CHECK constraints and array NOT NULL constraints. Do not use `db push` or run `constraints.sql` separately on startup. Future constraint changes belong in new migrations; do not edit an applied migration.
-
-To create subsequent migrations while developing:
-
-```sh
-docker compose run --rm app npx prisma migrate dev --create-only --name describe_change
-# Review the generated migration, including any required SQL constraints.
-docker compose run --rm app npm run db:migrate
-docker compose run --rm app npm run db:generate
-```
-
-The seed preserves supplied UUIDs, decimal strings, and UTC timestamps. It inserts in dependency order in one transaction, skips existing records, and preserves mutable data, including `updatedAt`. Existing UUID/email/role identities, asset ownership, inquiry participants/asset/submission key, and moderation participants/transitions must agree with the fixtures. Conflicts abort the whole seed with a descriptive error; the seed does not reassign references. Buyer profiles use the supplied shared user UUID as their identity. Seed/reset commands serialize through a PostgreSQL transaction advisory lock.
-
-Expected fixture counts: 13 users, 7 buyer profiles, 20 assets, 5 inquiries, and 2 moderation events. `verify:fixtures` compares every stored field to the originals; it is expected to fail after intentional demo edits until reset.
-
-## Explicit demo reset
-
-This command deletes all rows in the five demo tables, including user-created rows, and restores the original fixtures atomically:
-
-```sh
-docker compose run --rm -e LOCAL_DEMO_RESET=true app npm run reset-demo
-docker compose run --rm app npm run verify:fixtures
-```
-
-Reset requires all three conditions: `LOCAL_DEMO_RESET=true`, a non-production environment, and a local PostgreSQL URL for exactly `n5deal_demo`. Allowed hosts are `db`, `localhost`, `127.0.0.1`, and IPv6 loopback. Keep the guard disabled in `.env`; the command above enables it only for that invocation. Reset does not recreate the schema or alter migration history.
-
-## Verification
-
-Run code checks in Docker. Stop the dev app first because build and dev share a `.next` volume:
+Stop development before building or starting production: they share build output.
 
 ```sh
 docker compose stop app
-docker compose run --rm app sh -c 'npm run lint && npm run typecheck && npm run build'
-docker compose up -d app
+docker compose run --rm --no-deps app npm run build
+docker compose run --rm --service-ports app npm run start
 ```
 
-Run the focused PostgreSQL integration checks:
+The foreground production process serves port 3000. Stop it with Ctrl+C, then restore development with `docker compose up -d app`.
+
+### Tests and checks
+
+Initialize the separate local test database before running database-backed tests:
 
 ```sh
 docker compose run --rm app npm run verify:local-db
+docker compose run --rm app sh -c 'npm run test:auth && npm run test:marketplace && npm run test:catalogs && npm run test:inquiries && npm run test:moderation'
+docker compose run --rm app sh -c 'npm run format:check && npm run lint && npm run typecheck'
 ```
 
-This command recreates **only `n5deal_test`**, applies the committed migrations to the empty test database, and checks fixture counts, duplicate-free reseeding, preservation of edits, identity conflicts, transaction rollback on relationship conflicts, SQL constraints, and exact final fixtures. It requires a local PostgreSQL connection and a database owner able to create/drop the test database. It refuses production mode or a remote host. Negative SQL checks run inside rolled-back transactions; test setup changes stay in the separate test database. No test mutations remain in demo data.
+**`verify:local-db` drops and recreates only `n5deal_test`**, applies migrations, and verifies seeding and database constraints. It preserves `n5deal_demo`. Subsequent tests use isolated records in `n5deal_test` and clean them up. Database test guards reject remote hosts and production mode. Never run this suite against the hosted demo database.
 
-`verify:db` is the underlying check script and expects an empty, migrated `n5deal_test` database. `verify:local-db` recreates that database to make reruns reproducible. Results actually executed are recorded in [docs/LOCAL-VERIFICATION.md](docs/LOCAL-VERIFICATION.md).
+The five test commands cover session verification/access, asset and buyer validation/visibility, PostgreSQL catalog predicates, inquiry idempotency/read permissions, and atomic moderation. `npm run format` formats maintained sources; Markdown and generated files are excluded.
 
-## Stop and restart without losing data
+### Persistence, seeding, and reset
+
+`docker compose stop` / `docker compose start`, or `docker compose down` / `docker compose up -d`, retain data in `postgres_data`. **Do not use `docker compose down -v`** when retaining data. Keep the same Compose project name/directory.
+
+`db:migrate` explicitly applies committed migrations, including supplemental CHECK constraints and indexes. `db:seed` inserts missing fictional fixtures and preserves existing edits; identity/relationship conflicts abort the seed instead of reassigning ownership. Initial fixtures contain 13 users, 7 buyer profiles, 20 assets, 5 inquiries, and 2 moderation events. `verify:fixtures` compares every field and is expected to fail after intentional demo edits.
+
+For an intentional local reset only:
 
 ```sh
-docker compose stop
-docker compose start
+docker compose run --rm -e LOCAL_DEMO_RESET=true app npm run reset-demo
 ```
 
-Or recreate the containers while retaining volumes:
+**This deletes all business rows in local `n5deal_demo`, including user-created records**, then restores fixtures. The command refuses remote databases and production mode. There is no public reset endpoint.
 
-```sh
-docker compose down
-docker compose up -d
-```
+## Architecture and decisions
 
-The named `postgres_data` volume preserves data. Do not pass `--volumes`/`-v` to `docker compose down` when retaining data. Use the same project directory/project name to reuse the same volumes. PostgreSQL 18 stores data under the mounted `/var/lib/postgresql` directory.
+- `src/app` contains routes and server-rendered pages; `src/features` groups forms, validation, and pure policies by business feature. Server Actions parse input and call `src/server` mutations/queries, which check the current session, role, status, ownership, and visibility.
+- PostgreSQL is the source of truth. URL parameters hold filters and pagination; React holds unsaved form values; an eight-hour signed HttpOnly cookie holds identity. Role and ACTIVE status are read again on protected requests so moderation affects the next request.
+- Five tables keep the model focused: users, buyer profiles, assets, inquiries, and moderation events. Profiles share their owner's primary key. Decimal EUR amounts avoid floating-point money errors; UTC timestamps and stable identifiers support predictable history and ordering.
+- Buyer profile visibility and asset publication are separate from participant moderation. Suspension hides published records without rewriting their publication state. Removal is soft and preserves relationships and inquiry history. Managers cannot moderate Managers or access others' inquiries.
+- Contacts are saved, immutable inquiries, not chat or email. Only the recipient can mark one read; retries preserve the first read timestamp. A unique sender/attempt key prevents duplicates. Reusing a key with edited content returns a conflict; explicit recovery preserves edits and creates a separate inquiry only on submission.
+- Buyer account/profile edits and moderation/audit updates are transactional. PostgreSQL enforces foreign keys, uniqueness, and publication constraints; shared server policies enforce permissions and cross-record eligibility. No generic CRUD layer or DI container is needed for this scope.
+- `prisma/` includes the schema, committed migrations, supplemental constraints, fixtures, and explicit seed. Generated Client files are ignored. [Scope and acceptance](docs/N5Deal-Scope-and-Acceptance.md) and [database design](docs/DATABASE-DESIGN.md) record the original specification and design rationale.
 
-Source is bind-mounted for development. Webpack polling makes hot reload work across Docker Desktop. Container `node_modules` and `.next` each have their own named volume, isolating them from host dependencies and build artifacts. The entrypoint compares the dependency lockfile hash and runs `npm ci` when it changes, then generates the Prisma client. Rebuild the image after dependency changes with `docker compose build app`. Run dependency commands inside the container; host Node is optional and must match `.nvmrc` if used.
+## Deployment
 
-## Structure and decisions
+The dedicated `n5deal-marketplace-prototype` project uses **Vercel Hobby** and **Neon Free** PostgreSQL, both in Frankfurt (`fra1` / `eu-central-1`). The local Docker workflow remains independent.
 
-```text
-docs/                         Design and verification documentation
-prisma/
-  schema.prisma               Original five-table data model
-  constraints.sql             Original supplement included in initial migration
-  migrations/                 Versioned PostgreSQL DDL
-  seed-data.json              Original fictional fixtures and planned demo personas
-  fixtures.ts                 Timestamp, enum, and decimal-string parsing
-  seed-records.ts              Transaction-scoped insertion and conflict checks
-  seed.ts                     Explicit seed entrypoint
-scripts/                      Docker entrypoint, reset, and focused verification
-src/app/                      Minimal App Router landing page
-src/server/db.ts              Server-only Prisma client, cached across dev hot reload
-src/generated/prisma/         Generated client; ignored and recreated by Prisma
-prisma.config.ts              Prisma 7 schema, migrations, seed, and URL configuration
-Dockerfile / compose.yaml     Local application and persistent PostgreSQL services
-```
+1. Link the repository's `main` branch to the dedicated Vercel project. Use Node 22 and `npm run build`, which generates Prisma Client before building Next.js.
+2. Provision Neon through Vercel Marketplace using the Free plan, authentication disabled, and a nearby region. Connect it to **production only**; previews must not inherit write access to the production database.
+3. Configure only production's server-only `DATABASE_URL` (pooled runtime), `DATABASE_URL_UNPOOLED` (direct Prisma CLI connection), a newly generated `SESSION_SECRET`, and `SESSION_COOKIE_SECURE=true`. Both connection URLs use `sslmode=verify-full`; credentials are stored as Vercel secrets. Preview deployments require a separate database before they can run.
+4. Confirm the connection targets this application's dedicated database, then run `db:migrate` and `db:seed` explicitly against that connection. Never run reset/test commands there or seed on every deployment.
+5. Deploy the verified source revision and check the public HTTPS sign-in, role read/write flows, contacts, persistence, and reversible moderation from a browser without a Vercel login. The public production URL is added here only after verification.
 
-The existing database files were moved into `prisma/`, and `DATABASE-DESIGN.md` into `docs/`, without changing their contents or the data model. No extra business tables, indexes, repositories, service layers, or DI container were introduced.
+Provider references: [Vercel CLI integrations](https://vercel.com/docs/cli/integration), [Vercel Node versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions), and [Neon with Prisma](https://neon.com/docs/guides/prisma).
 
-Node **22.22.2** is declared in `.nvmrc`, `package.json`, and the Docker base image. Next.js **16.3.8**, React **19.3.0**, TypeScript **5.9.3**, and Prisma CLI/client/PostgreSQL adapter **7.10.0** are locked by `package-lock.json`. Prisma 7 uses its generated TypeScript client and the PostgreSQL driver adapter. Separate CLI connections close their pools when finished; the server module caches one client during development hot reload.
+## Limitations and development tools
 
-Compatibility references: [Prisma 7 upgrade guide](https://www.prisma.io/docs/guides/upgrade-prisma-orm/v7) and [Next.js installation requirements](https://nextjs.org/docs/app/getting-started/installation). Scoped dependency overrides for Prisma's `deepmerge-ts` and `mysql2` address available transitive advisory fixes while retaining Prisma 7; their compatibility is checked by generation, migration, seed, and build commands. Remaining dependency advisories are recorded in the verification report.
+This is a technical-assignment prototype: one role per account, English, EUR, and fictional shared data. No registration, passwords, verified companies/licenses, uploads, payments, email delivery, conversation threads, or AI product features. Editing permits last-write-wins; moderation does not promise a global ordering of already-running concurrent requests. Unsaved inputs may be lost on refresh; Save draft preserves them. Free hosting/database quotas and cold starts can affect latency and availability.
 
-`N5Deal-Scope-and-Acceptance.md` was not supplied and was not found in the repository. Its contents have not been reconstructed. The supplied Step 3 brief and [database design](docs/DATABASE-DESIGN.md) were used for this foundation; add the missing agreed scope document under `docs/` when available. No applicable `AGENTS.md` was present.
+With more time: replace open persona selection with production authentication, isolate evaluator data, expand browser regression coverage, improve operational monitoring, and measure query performance before adding indexes or a search service.
+
+OpenAI Codex assisted with implementation, focused fixes, formatting, documentation, and local verification. Its output was checked through source/diff review, TypeScript, ESLint, existing Node/PostgreSQL tests, production builds, and real Chrome acceptance flows. AI assistance in development does not mean the application contains AI functionality.
