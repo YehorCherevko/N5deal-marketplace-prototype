@@ -4,9 +4,11 @@ A small marketplace for fictional financial businesses and assets. Sellers manag
 
 [Source repository](https://github.com/YehorCherevko/N5deal-marketplace-prototype)
 
+[Public demo](https://n5deal-marketplace-prototype-ashy.vercel.app)
+
 ## Try the demo
 
-Open `/sign-in`, select a demo account, and continue. No registration or password is required. Use **Switch account** to try another role; **Sign out** clears the session.
+Open [demo sign-in](https://n5deal-marketplace-prototype-ashy.vercel.app/sign-in), select a demo account, and continue. No registration or password is required. Use **Switch account** to try another role; **Sign out** clears the session.
 
 | Persona | Role | Starting point |
 | --- | --- | --- |
@@ -113,7 +115,7 @@ The dedicated `n5deal-marketplace-prototype` project uses **Vercel Hobby** and *
 2. Provision Neon through Vercel Marketplace using the Free plan, authentication disabled, and a nearby region. Connect it to **production only**; previews must not inherit write access to the production database.
 3. Configure only production's server-only `DATABASE_URL` (pooled runtime), `DATABASE_URL_UNPOOLED` (direct Prisma CLI connection), a newly generated `SESSION_SECRET`, and `SESSION_COOKIE_SECURE=true`. Both connection URLs use `sslmode=verify-full`; credentials are stored as Vercel secrets. Preview deployments require a separate database before they can run.
 4. Confirm the connection targets this application's dedicated database, then run `db:migrate` and `db:seed` explicitly against that connection. Never run reset/test commands there or seed on every deployment.
-5. Deploy the verified source revision and check the public HTTPS sign-in, role read/write flows, contacts, persistence, and reversible moderation from a browser without a Vercel login. The public production URL is added here only after verification.
+5. Push the verified revision to `main`; the connected Vercel project builds and deploys it. Check the public HTTPS sign-in, role read/write flows, contacts, persistence, and reversible moderation from a browser without a Vercel login. The linked public demo passed these checks; verification records were removed and the original hosted fixtures restored.
 
 Provider references: [Vercel CLI integrations](https://vercel.com/docs/cli/integration), [Vercel Node versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions), and [Neon with Prisma](https://neon.com/docs/guides/prisma).
 
