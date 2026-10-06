@@ -25,7 +25,7 @@ All demo visitors share persistent data and can choose the Manager persona. Acco
 
 ## Run locally
 
-Prerequisite: Docker Desktop or Docker Engine with Docker Compose, with its daemon running. Docker runs **both the application and PostgreSQL**. Host Node.js and PostgreSQL are optional. Docker and `.nvmrc` pin Node 22.22.2; npm and `package-lock.json` manage dependencies.
+Prerequisite: Docker Desktop or Docker Engine with Docker Compose, with its daemon running. Docker runs **both the application and PostgreSQL**. Host Node.js and PostgreSQL are optional. Docker and `.nvmrc` pin Node 22.22.2 locally; `package.json` allows Vercel's managed Node 22 patch updates. npm and `package-lock.json` manage dependencies.
 
 ```sh
 cp .env.example .env
